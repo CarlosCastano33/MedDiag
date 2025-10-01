@@ -81,9 +81,9 @@ if selected == 'Diabetes Prediction':
         diab_prediction = diabetes_model.predict([user_input])
 
         if diab_prediction[0] == 1:
-            diab_diagnosis = 'The person is diabetic'
+            diab_diagnosis = 'La persona puedría ser diabética, consulte con su médico.'
         else:
-            diab_diagnosis = 'The person is not diabetic'
+            diab_diagnosis = 'La persona no es diabética.'
 
     st.success(diab_diagnosis)
 
@@ -148,9 +148,9 @@ if selected == 'Heart Disease Prediction':
         heart_prediction = heart_disease_model.predict([user_input])
 
         if heart_prediction[0] == 1:
-            heart_diagnosis = 'The person is having heart disease'
+            heart_diagnosis = 'La persona podría tener una enfermedad cardíaca, consulte con su médico.'
         else:
-            heart_diagnosis = 'The person does not have any heart disease'
+            heart_diagnosis = 'La persona no tiene enfermedad cardíaca.'
 
     st.success(heart_diagnosis)
 
@@ -243,8 +243,8 @@ if selected == "Parkinsons Prediction":
         parkinsons_prediction = parkinsons_model.predict([user_input])
 
         if parkinsons_prediction[0] == 1:
-            parkinsons_diagnosis = "The person has Parkinson's disease"
+            parkinsons_diagnosis = "La persona podría tener la enfermedad de Parkinson."
         else:
-            parkinsons_diagnosis = "The person does not have Parkinson's disease"
+            parkinsons_diagnosis = "La persona no tiene la enfermedad de Parkinson."
 
     st.success(parkinsons_diagnosis)
