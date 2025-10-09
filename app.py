@@ -3,11 +3,12 @@ import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
 from translations import translations
+from flags import get_flag
 
 # Set page configuration
 st.set_page_config(page_title="Health Assistant",
                    layout="wide",
-                   page_icon="🧑‍⚕️")
+                   page_icon="⚕️")
 
     
 # getting the working directory of the main.py
@@ -21,28 +22,37 @@ parkinsons_model = pickle.load(open(f'{working_dir}/saved_models/parkinsons_mode
 # sidebar for navigation
 with st.sidebar:
     # --- Selector de idioma ---
-    st.markdown("<h2 style='text-align: center;'>🌐</h2>", unsafe_allow_html=True)
-    language = st.toggle("🇨🇴 Español / 🇬🇧 English", value=True)
+    #st.markdown("<h2 style='text-align: center;'>🇨🇴🌐🇬🇧</h2>", unsafe_allow_html=True)
+    st.markdown(
+        f"<h2 style='text-align: center;'><img src='{get_flag('uk')}' width='30' height='20'> 🌐 <img src='{get_flag('co')}' width='30' height='20'></h2>",
+        unsafe_allow_html=True
+        )
+
+     # Toggle centrado debajo del emoji
+    col_toggle = st.columns([1, 1, 1])
+    with col_toggle[1]:
+        language = st.toggle("", value=True)
     selected_language = "es" if language else "en"
     t = translations[selected_language]
     st.write("")
 
-    selected = option_menu('Multiple Disease Prediction System',
+    #selected = option_menu('Multiple Disease Prediction System',
+    selected = option_menu(t["MultipleDPS"],
 
-                           ['Diabetes Prediction',
-                            'Heart Disease Prediction',
-                            'Parkinsons Prediction'],
+                           [t["diabetes_prediction"],
+                            t['heart_disease_prediction'],
+                            t['parkinsons_prediction']],
                            menu_icon='hospital-fill',
                            icons=['activity', 'heart', 'person'],
                            default_index=0)
 
 
 # Diabetes Prediction Page
-if selected == 'Diabetes Prediction':
+if selected == t["diabetes_prediction"]:
 
     # page title
     #st.title('Diabetes Prediction using ML')
-    st.title(t["title"])
+    st.title(t["title_diabetes"])
 
     # getting the input data from the user
     col1, col2, col3 = st.columns(3)
@@ -77,14 +87,15 @@ if selected == 'Diabetes Prediction':
 
     with col2:
         #Age = st.text_input('Age of the Person')
-        Age = st.text_input(t["age_of_the_person"])
+        Age = st.text_input(t["age"])
 
     # code for Prediction
     diab_diagnosis = ''
 
     # creating a button for Prediction
 
-    if st.button('Diabetes Test Result'):
+    #if st.button('Diabetes Test Result'):
+    if st.button(t['button_diabetes']):
 
         user_input = [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin,
                       BMI, DiabetesPedigreeFunction, Age]
@@ -94,17 +105,18 @@ if selected == 'Diabetes Prediction':
         diab_prediction = diabetes_model.predict([user_input])
 
         if diab_prediction[0] == 1:
-            diab_diagnosis = 'The person may be diabetic, consult your doctor.'
+            #diab_diagnosis = 'The person may be diabetic, consult your doctor.'
+            diab_diagnosis = t['positive_diabetes']
         else:
             diab_diagnosis = 'The person is not diabetic.'
 
     st.success(diab_diagnosis)
 
 # Heart Disease Prediction Page
-if selected == 'Heart Disease Prediction':
+if selected == t['heart_disease_prediction']:
 
     # page title
-    st.title('Heart Disease Prediction using ML')
+    st.title(t['title_heart'])
 
     col1, col2, col3 = st.columns(3)
 
@@ -152,7 +164,7 @@ if selected == 'Heart Disease Prediction':
 
     # creating a button for Prediction
 
-    if st.button('Heart Disease Test Result'):
+    if st.button(t['button_heart']):
 
         user_input = [age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]
 
@@ -168,7 +180,7 @@ if selected == 'Heart Disease Prediction':
     st.success(heart_diagnosis)
 
 # Parkinson's Prediction Page
-if selected == "Parkinsons Prediction":
+if selected == t['parkinsons_prediction']:
 
     # page title
     st.title("Parkinson's Disease Prediction using ML")

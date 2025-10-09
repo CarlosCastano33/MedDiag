@@ -1,6 +1,11 @@
 translations = {
     "es": {
-        "title": "Predicción de Diabetes con ML",
+        "MultipleDPS": "Sistema de predicción de múltiples enfermedades",
+        "diabetes_prediction": "Predicción de Diabetes",
+        'heart_disease_prediction': 'Predicción de Enfermedad Cardíaca',
+        'parkinsons_prediction': 'Predicción de Parkinson',
+
+        "title_diabetes": "Predicción de Diabetes con ML",
         "pregnancies": "Número de embarazos",
         "glucose_level": "Nivel de glucosa",
         "blood_pressure": "Presión arterial",
@@ -8,13 +13,36 @@ translations = {
         "insulin_level": "Nivel de insulina",
         "bmi": "Índice de masa corporal",
         "diabetes_pedigree_function": "Función de herencia de la diabetes",
-        "age_of_the_person": "Edad de la persona",
-        "button": "Resultado del test de diabetes",
-        "diagnosis_positive": "La persona puede ser diabética, consulte a su médico.",
-        "diagnosis_negative": "La persona no es diabética."
+        "age": "Edad",
+        "button_diabetes": "Resultado del test de diabetes",
+        "positive_diabetes": "La persona puede ser diabética, consulte a su médico.",
+        "negative_diabetes": "La persona no es diabética.",
+        ####################################################################
+        "title_heart": "Predicción de enfermedad cardíaca con ML",
+        "sex": "Sexo",
+        "cp": "Tipo de dolor en el pecho",
+        "trestbps": "Presión arterial en reposo",
+        "chol": "Colesterol sérico (mg/dl)",
+        "fbs": "Azúcar en sangre en ayunas > 120 mg/dl",
+        "restecg": "Resultados del electrocardiograma en reposo",
+        "thalach": "Frecuencia cardíaca máxima alcanzada",
+        "exang": "Angina inducida por ejercicio",
+        "oldpeak": "Depresión del ST inducida por ejercicio",
+        "slope": "Pendiente del segmento ST en el pico del ejercicio",
+        "ca": "Vasos principales coloreados por fluoroscopia",
+        "thal": "thal: 0 = normal; 1 = defecto fijo; 2 = defecto reversible",
+        "button_heart": "Resultado del test de enfermedad cardíaca",
+        "positive_heart": "La persona puede ser cardíaca, consulte a su médico.",
+        "negative_heart": "La persona no es cardíaca."
+        ####################################################################
     },
     "en": {
-        "title": "Diabetes Prediction using ML",
+        "MultipleDPS": "Multiple Disease Prediction System",
+        "diabetes_prediction": "Diabetes Prediction",
+        'heart_disease_prediction': 'Heart Disease Prediction',
+        'parkinsons_prediction': 'Parkinsons Prediction',
+
+        "title_diabetes": "Diabetes Prediction with ML",
         "pregnancies": "Number of Pregnancies",
         "glucose_level": "Glucose Level",
         "blood_pressure": "Blood Pressure",
@@ -22,9 +50,28 @@ translations = {
         "insulin_level": "Insulin Level",
         "bmi": "Body Mass Index",
         "diabetes_pedigree_function": "Diabetes Pedigree Function",
-        "age_of_the_person": "Age of the Person",
-        "button": "Diabetes Test Result",
-        "diagnosis_positive": "The person may be diabetic, consult your doctor.",
-        "diagnosis_negative": "The person is not diabetic."
+        "age": "Age ",
+        "button_diabetes": "Diabetes Test Result",
+        "positive_diabetes": "The person may be diabetic, consult your doctor.",
+        "negative_diabetes": "The person is not diabetic.",
+        ####################################################################
+        "title_heart": "Predicting heart disease with ML",
+        "sex": "Sex",
+        "cp": "Chest Pain type",
+        "trestbps": "Resting Blood Pressure",
+        "chol": "Serum Cholestoral (mg/dl)",
+        "fbs": "Fasting Blood Sugar > 120 mg/dl",
+        "restecg": "Resting Electrocardiographic Results",
+        "thalach": "Maximum Heart Rate Achieved",
+        "exang": "Exercise Induced Angina",
+        "oldpeak": "ST Depression Induced by Exercise",
+        "slope": "Slope of the Peak Exercise ST Segment",
+        "ca": "Major vessels colored by flourosopy",
+        "thal": "thal: 0 = normal; 1 = fixed defect; 2 = reversible defect",
+        "button_heart": "Heart Disease Test Result",
+        "positive_heart": "The person may have a heart condition, consult your doctor.",
+        "negative_heart": "The person does not have a heart condition.",
+        ####################################################################
+        
     }
 }
