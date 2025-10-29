@@ -163,9 +163,9 @@ El modelo resultante se guarda en `models/trained_model.pkl`.
 
 ##  Equipo de Desarrollo
 
-* **Dina Reale** – Arquitectura y documentación
-* **Adrián Espinosa** – Backend y modelo predictivo
-* **Laura Carolina Montoya** – Coordinación, diseño y pruebas
+* **Dina Reale** 
+* **Carlos Casraño**  
+* **Adrian Espinosa** 
 
 ---
 
