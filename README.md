@@ -129,7 +129,7 @@ streamlit run app_streamlit.py
 
 ---
 
-## 📊 Dataset de Entrenamiento
+##  Dataset de Entrenamiento
 
 El dataset usado en esta versión MVP contiene información simulada sobre síntomas y enfermedades comunes, garantizando la **anonimización completa de datos personales**.
 Archivo: `/app/data/dataset_salud.csv`
