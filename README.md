@@ -33,28 +33,13 @@ El MVP sigue una arquitectura **monolítica** simple compuesta por tres capas pr
    - Entrenado con dataset médico anonimizado.
    - Evalúa probabilidades de enfermedades basadas en los síntomas registrados.
 
----
 
-##  Flujo de la Aplicación
-
-```mermaid
-flowchart LR
-U[Usuario] -->|Ingresa síntomas| ST[Streamlit UI]
-ST -->|Petición HTTP| API[FastAPI Backend]
-API -->|Datos procesados| ML[Modelo Predictivo]
-ML -->|Diagnóstico| API
-API -->|Respuesta JSON| ST
-ST -->|Resultado visual| U
-````
-
----
 
 ##  Tecnologías Utilizadas
 
 | Componente           | Tecnología                              | Descripción                               |
 | -------------------- | --------------------------------------- | ----------------------------------------- |
 | Lenguaje principal   | **Python 3.10+**                        | Desarrollo general del MVP                |
-| Framework web        | **FastAPI**                             | Comunicación API REST entre módulos       |
 | Interfaz gráfica     | **Streamlit**                           | Aplicación interactiva para usuarios      |
 | ML / IA              | **scikit-learn**, **pandas**, **numpy** | Entrenamiento y predicción de datos       |
 | Base de datos        | **SQLite** (temporal)                   | Almacenamiento local de registros médicos |
@@ -129,12 +114,6 @@ streamlit run app_streamlit.py
 
 ---
 
-##  Dataset de Entrenamiento
-
-El dataset usado en esta versión MVP contiene información simulada sobre síntomas y enfermedades comunes, garantizando la **anonimización completa de datos personales**.
-Archivo: `/app/data/dataset_salud.csv`
-
----
 
 ##  Estado del MVP
 
@@ -164,15 +143,12 @@ El modelo resultante se guarda en `models/trained_model.pkl`.
 ##  Equipo de Desarrollo
 
 * **Dina Reale** 
-* **Carlos Casraño**  
+* **Carlos Castaño**  
 * **Adrian Espinosa** 
 
----
 
-##  Licencia
 
-Este proyecto está bajo la licencia **MIT License**.
-Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+
 
 ---
 
