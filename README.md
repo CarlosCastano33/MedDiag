@@ -1,24 +1,20 @@
-Perfecto ✅
-Aquí tienes una versión completa y clara del archivo **`README.md`** para la rama **MVP** del proyecto **MedDiag**, orientado al producto funcional mínimo (prototipo en Python con frameworks básicos).
-Este README está pensado para tu repositorio en GitHub y sigue un formato profesional y ordenado 👇
 
----
 
 ````markdown
-# 🩺 MedDiag – MVP (Producto Mínimo Viable)
+#  MedDiag – MVP (Producto Mínimo Viable)
 
 **MedDiag** es un prototipo de aplicación de apoyo diagnóstico médico que utiliza **Inteligencia Artificial** para analizar síntomas y sugerir posibles diagnósticos preliminares.  
 Este MVP está desarrollado en **Python**, empleando frameworks livianos y fácilmente desplegables, con el propósito de validar la funcionalidad central del sistema antes de su versión empresarial.
 
 ---
 
-## 🚀 Objetivo del MVP
+##  Objetivo del MVP
 
 El objetivo principal del MVP es **demostrar la viabilidad funcional del modelo de diagnóstico automático**, integrando un flujo simple que va desde la **entrada de síntomas** por parte del usuario hasta la **predicción de la posible enfermedad** basada en modelos entrenados.
 
 ---
 
-## 🧩 Arquitectura General
+##  Arquitectura General
 
 El MVP sigue una arquitectura **monolítica** simple compuesta por tres capas principales:
 
@@ -39,7 +35,7 @@ El MVP sigue una arquitectura **monolítica** simple compuesta por tres capas pr
 
 ---
 
-## 🧠 Flujo de la Aplicación
+##  Flujo de la Aplicación
 
 ```mermaid
 flowchart LR
@@ -53,7 +49,7 @@ ST -->|Resultado visual| U
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+##  Tecnologías Utilizadas
 
 | Componente           | Tecnología                              | Descripción                               |
 | -------------------- | --------------------------------------- | ----------------------------------------- |
@@ -66,7 +62,7 @@ ST -->|Resultado visual| U
 
 ---
 
-## 📂 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 MedDiag/
@@ -93,9 +89,9 @@ MedDiag/
 
 ---
 
-## ⚙️ Instalación y Ejecución
+##  Instalación y Ejecución
 
-### 1️⃣ Clonar el repositorio
+### 1️ Clonar el repositorio
 
 ```bash
 git clone https://github.com/CarlosCastano33/MedDiag.git
@@ -103,7 +99,7 @@ cd MedDiag
 git checkout carlos   # Rama MVP
 ```
 
-### 2️⃣ Crear y activar entorno virtual
+### 2️ Crear y activar entorno virtual
 
 ```bash
 python -m venv venv
@@ -111,20 +107,20 @@ source venv/bin/activate  # Linux / macOS
 venv\Scripts\activate     # Windows
 ```
 
-### 3️⃣ Instalar dependencias
+### 3️ Instalar dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Ejecutar el backend (FastAPI)
+### 4️ Ejecutar el backend (FastAPI)
 
 ```bash
 cd app
 uvicorn main:app --reload
 ```
 
-### 5️⃣ Ejecutar la interfaz (Streamlit)
+### 5️ Ejecutar la interfaz (Streamlit)
 
 ```bash
 cd frontend
@@ -140,7 +136,7 @@ Archivo: `/app/data/dataset_salud.csv`
 
 ---
 
-## 🧩 Estado del MVP
+##  Estado del MVP
 
 | Módulo              | Estado       | Descripción                                 |
 | ------------------- | ------------ | ------------------------------------------- |
@@ -152,7 +148,7 @@ Archivo: `/app/data/dataset_salud.csv`
 
 ---
 
-## 🧪 Pruebas y Entrenamiento
+##  Pruebas y Entrenamiento
 
 Para ejecutar pruebas o reentrenar el modelo:
 
@@ -165,7 +161,7 @@ El modelo resultante se guarda en `models/trained_model.pkl`.
 
 ---
 
-## 👥 Equipo de Desarrollo
+##  Equipo de Desarrollo
 
 * **Dina Reale** – Arquitectura y documentación
 * **Adrián Espinosa** – Backend y modelo predictivo
@@ -173,7 +169,7 @@ El modelo resultante se guarda en `models/trained_model.pkl`.
 
 ---
 
-## 📘 Licencia
+##  Licencia
 
 Este proyecto está bajo la licencia **MIT License**.
 Consulta el archivo [LICENSE](./LICENSE) para más detalles.
