@@ -10,6 +10,12 @@ st.set_page_config(page_title="Health Assistant",
                    layout="wide",
                    page_icon="⚕️")
 
+def text_input_with_state(label, key, default=''):
+    """Helper function to create a text input that persists in session state"""
+    value = st.session_state.get(key, default)
+    user_input = st.text_input(label, value=value)
+    st.session_state[key] = user_input
+    return user_input
     
 # getting the working directory of the main.py
 working_dir = os.path.dirname(os.path.abspath(__file__))
@@ -58,36 +64,35 @@ if selected == t["diabetes_prediction"]:
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        #Pregnancies = st.text_input('Number of Pregnancies')
-        Pregnancies = st.text_input(t["pregnancies"])
-
+        pregnancies = text_input_with_state(t["pregnancies"], 'pregnancies')
+        
     with col2:
         #Glucose = st.text_input('Glucose Level')
-        Glucose = st.text_input(t["glucose_level"])
+        Glucose = text_input_with_state(t["glucose_level"], 'Glucose')
 
     with col3:
         #BloodPressure = st.text_input('Blood Pressure value')
-        BloodPressure = st.text_input(t["blood_pressure"])
+        BloodPressure = text_input_with_state(t["blood_pressure"], 'BloodPressure')
 
     with col1:
         #SkinThickness = st.text_input('Skin Thickness value')
-        SkinThickness = st.text_input(t["skin_thickness"])
+        SkinThickness = text_input_with_state(t["skin_thickness"], 'SkinThickness')
 
     with col2:
         #Insulin = st.text_input('Insulin Level')
-        Insulin = st.text_input(t["insulin_level"])
+        Insulin = text_input_with_state(t["insulin_level"], 'Insulin')
 
     with col3:
         #BMI = st.text_input('BMI value')
-        BMI = st.text_input(t["bmi"])
+        BMI = text_input_with_state(t["bmi"], 'BMI')
 
     with col1:
         #DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
-        DiabetesPedigreeFunction = st.text_input(t["diabetes_pedigree_function"])
+        DiabetesPedigreeFunction = text_input_with_state(t["diabetes_pedigree_function"], 'DiabetesPedigreeFunction')
 
     with col2:
         #Age = st.text_input('Age of the Person')
-        Age = st.text_input(t["age"])
+        Age = text_input_with_state(t["age"], 'Age')
 
     # code for Prediction
     diab_diagnosis = ''
@@ -97,7 +102,7 @@ if selected == t["diabetes_prediction"]:
     #if st.button('Diabetes Test Result'):
     if st.button(t['button_diabetes']):
 
-        user_input = [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin,
+        user_input = [pregnancies, Glucose, BloodPressure, SkinThickness, Insulin,
                       BMI, DiabetesPedigreeFunction, Age]
 
         user_input = [float(x) for x in user_input]
@@ -121,43 +126,43 @@ if selected == t['heart_disease_prediction']:
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        age = st.text_input(t['age'])
+        age = text_input_with_state(t['age'], 'heart_age')
 
     with col2:
-        sex = st.text_input(t['sex'])
+        sex = text_input_with_state(t['sex'], 'sex')
 
     with col3:
-        cp = st.text_input(t['cp'])
+        cp = text_input_with_state(t['cp'], 'cp')
 
     with col1:
-        trestbps = st.text_input(t['trestbps'])
+        trestbps = text_input_with_state(t['trestbps'], 'trestbps')
 
     with col2:
-        chol = st.text_input(t['chol'])
+        chol = text_input_with_state(t['chol'], 'chol')
 
     with col3:
-        fbs = st.text_input(t['fbs'])
+        fbs = text_input_with_state(t['fbs'], 'fbs')
 
     with col1:
-        restecg = st.text_input(t['restecg'])
+        restecg = text_input_with_state(t['restecg'], 'restecg')
 
     with col2:
-        thalach = st.text_input(t['thalach'])
+        thalach = text_input_with_state(t['thalach'], 'thalach')
 
     with col3:
-        exang = st.text_input(t['exang'])
+        exang = text_input_with_state(t['exang'], 'exang')
 
     with col1:
-        oldpeak = st.text_input(t['oldpeak'])
+        oldpeak = text_input_with_state(t['oldpeak'], 'oldpeak')
 
     with col2:
-        slope = st.text_input(t['slope'])
+        slope = text_input_with_state(t['slope'], 'slope')
 
     with col3:
-        ca = st.text_input(t['ca'])
+        ca = text_input_with_state(t['ca'], 'ca')
 
     with col1:
-        thal = st.text_input(t['thal'])
+        thal = text_input_with_state(t['thal'], 'thal')
 
     # code for Prediction
     heart_diagnosis = ''
@@ -190,71 +195,71 @@ if selected == t['parkinsons_prediction']:
 
     with col1:
 #        fo = st.text_input('MDVP:Fo(Hz)')
-        fo = st.text_input(t['fo'])
+        fo = text_input_with_state(t['fo'], 'fo')
 
     with col2:
 #        fhi = st.text_input('MDVP:Fhi(Hz)')
-        fhi = st.text_input(t['fhi'])
+        fhi = text_input_with_state(t['fhi'], 'fhi')
 
     with col3:
-        flo = st.text_input(t['flo'])
+        flo = text_input_with_state(t['flo'], 'flo')
 
     with col4:
-        jitter_percent = st.text_input(t['jitter_percent'])
+        jitter_percent = text_input_with_state(t['jitter_percent'], 'jitter_percent')
 
     with col5:
-        jitter_abs = st.text_input(t['jitter_abs'])
+        jitter_abs = text_input_with_state(t['jitter_abs'], 'jitter_abs')
 
     with col1:
-        RAP = st.text_input(t['RAP'])
+        RAP = text_input_with_state(t['RAP'], 'RAP')
 
     with col2:
-        PPQ = st.text_input(t['PPQ'])
+        PPQ = text_input_with_state(t['PPQ'], 'PPQ')
 
     with col3:
-        DDP = st.text_input(t['DDP'])
+        DDP = text_input_with_state(t['DDP'], 'DDP')
 
     with col4:
-        shimmer = st.text_input(t['shimmer'])
+        shimmer = text_input_with_state(t['shimmer'], 'shimmer')
 
     with col5:
-        shimmer_dB = st.text_input(t['shimmer_dB'])
+        shimmer_dB = text_input_with_state(t['shimmer_dB'], 'shimmer_dB')
 
     with col1:
-        APQ3 = st.text_input(t['APQ3'])
+        APQ3 = text_input_with_state(t['APQ3'], 'APQ3')
 
     with col2:
-        APQ5 = st.text_input(t['APQ5'])
+        APQ5 = text_input_with_state(t['APQ5'], 'APQ5')
 
     with col3:
-        APQ = st.text_input(t['APQ'])
+        APQ = text_input_with_state(t['APQ'], 'APQ')
 
     with col4:
-        DDA = st.text_input(t['DDA'])
+        DDA = text_input_with_state(t['DDA'], 'DDA')
 
     with col5:
-        NHR = st.text_input(t['NHR'])
+        NHR = text_input_with_state(t['NHR'], 'NHR')
 
     with col1:
-        HNR = st.text_input(t['HNR'])
+        HNR = text_input_with_state(t['HNR'], 'HNR')
 
     with col2:
-        RPDE = st.text_input(t['RPDE'])
+        RPDE = text_input_with_state(t['RPDE'], 'RPDE')
 
     with col3:
-        DFA = st.text_input(t['DFA'])
+        DFA = text_input_with_state(t['DFA'], 'DFA')
 
     with col4:
-        spread1 = st.text_input(t['spread1'])
+        spread1 = text_input_with_state(t['spread1'], 'spread1')
 
     with col5:
-        spread2 = st.text_input(t['spread2'])
+        spread2 = text_input_with_state(t['spread2'], 'spread2')
 
     with col1:
-        D2 = st.text_input(t['D2'])
+        D2 = text_input_with_state(t['D2'], 'D2')
 
     with col2:
-        PPE = st.text_input(t['PPE'])
+        PPE = text_input_with_state(t['PPE'], 'PPE')
 
     # code for Prediction
     parkinsons_diagnosis = ''
