@@ -5,10 +5,22 @@ from streamlit_option_menu import option_menu
 from translations import translations
 from flags import get_flag
 
+from database import engine, SessionLocal
+from models import Base
+from crud import get_or_create_user, seed_default_diseases, create_diagnosis_with_single_candidate
+
+
 # Set page configuration
 st.set_page_config(page_title="Health Assistant",
                    layout="wide",
                    page_icon="⚕️")
+
+# Crear tablas si no existen (MVP monolítico)
+Base.metadata.create_all(bind=engine)
+
+# Seed enfermedades base
+with SessionLocal() as db:
+    seed_default_diseases(db)
 
     
 # getting the working directory of the main.py
@@ -45,6 +57,22 @@ with st.sidebar:
                            menu_icon='hospital-fill',
                            icons=['activity', 'heart', 'person'],
                            default_index=0)
+
+st.subheader("Datos básicos del paciente (para registrar el diagnóstico)")
+
+col_u1, col_u2, col_u3 = st.columns(3)
+with col_u1:
+    user_name = st.text_input("Nombre del paciente", value="Paciente Demo")
+with col_u2:
+    user_email = st.text_input("Correo (opcional)")
+with col_u3:
+    user_phone = st.text_input("Teléfono (opcional)")
+
+col_u4, col_u5 = st.columns(2)
+with col_u4:
+    user_age = st.number_input("Edad", min_value=0, max_value=120, value=30)
+with col_u5:
+    user_gender = st.selectbox("Género", options=["M", "F", "O"], index=0)
 
 
 # Diabetes Prediction Page
