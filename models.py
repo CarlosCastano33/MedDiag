@@ -1,6 +1,6 @@
 # models.py
 from sqlalchemy import (
-    Column, BigInteger, Integer, String, Text,
+    Column, Integer, String, Text,
     Numeric, ForeignKey, CheckConstraint, UniqueConstraint,
     DateTime
 )
@@ -11,7 +11,7 @@ from database import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(Text, nullable=False)
     phone_number = Column(Text)
     age = Column(Integer, CheckConstraint("age BETWEEN 0 AND 120"))
@@ -23,7 +23,7 @@ class User(Base):
 class Symptom(Base):
     __tablename__ = "symptoms"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(Text, nullable=False, unique=True)
     description = Column(Text)
 
@@ -32,7 +32,7 @@ class Symptom(Base):
 class Disease(Base):
     __tablename__ = "diseases"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     disease_code = Column(Text, nullable=False, unique=True)
     name = Column(Text, nullable=False)
     description = Column(Text)
@@ -42,8 +42,8 @@ class Disease(Base):
 class Diagnosis(Base):
     __tablename__ = "diagnoses"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
-    user_id = Column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     generated_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     status = Column(
         Text,
@@ -63,9 +63,9 @@ class Diagnosis(Base):
 class DiagnosisDetail(Base):
     __tablename__ = "diagnosis_details"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
-    diagnosis_id = Column(BigInteger, ForeignKey("diagnoses.id", ondelete="CASCADE"), nullable=False)
-    disease_id = Column(BigInteger, ForeignKey("diseases.id", ondelete="RESTRICT"), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    diagnosis_id = Column(Integer, ForeignKey("diagnoses.id", ondelete="CASCADE"), nullable=False)
+    disease_id = Column(Integer, ForeignKey("diseases.id", ondelete="RESTRICT"), nullable=False)
     probability = Column(Numeric(5, 4), nullable=False)
 
     __table_args__ = (
@@ -79,9 +79,9 @@ class DiagnosisDetail(Base):
 class DiagnosisSymptom(Base):
     __tablename__ = "diagnosis_symptoms"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
-    diagnosis_id = Column(BigInteger, ForeignKey("diagnoses.id", ondelete="CASCADE"), nullable=False)
-    symptom_id = Column(BigInteger, ForeignKey("symptoms.id", ondelete="RESTRICT"), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    diagnosis_id = Column(Integer, ForeignKey("diagnoses.id", ondelete="CASCADE"), nullable=False)
+    symptom_id = Column(Integer, ForeignKey("symptoms.id", ondelete="RESTRICT"), nullable=False)
 
     __table_args__ = (
         UniqueConstraint("diagnosis_id", "symptom_id", name="uq_diag_symptom"),
