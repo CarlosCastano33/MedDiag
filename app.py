@@ -4,6 +4,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from translations import translations
 from flags import get_flag
+from ollama import chat
+from pydantic import BaseModel
 
 # Set page configuration
 st.set_page_config(page_title="Health Assistant",
