@@ -65,6 +65,7 @@ translations = {
         # NUEVO: historial
         "history": "Historial de diagnósticos",
         "history_intro": "Consulta los diagnósticos registrados por la aplicación.",
+        "history_filter_name": "Filtrar por nombre (opcional)",
         "history_filter_email": "Filtrar por correo (opcional)",
         "history_show_button": "Mostrar historial",
         "history_empty": "Aún no hay diagnósticos registrados en la base de datos.",
@@ -136,6 +137,7 @@ translations = {
         # NEW: history
         "history": "Diagnosis history",
         "history_intro": "Browse the diagnoses stored by the application.",
+        "history_filter_name": "Filter by name (optional)",
         "history_filter_email": "Filter by email (optional)",
         "history_show_button": "Show history",
         "history_empty": "No diagnoses have been stored yet.",
