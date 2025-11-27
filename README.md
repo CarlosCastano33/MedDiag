@@ -1,139 +1,144 @@
+# MedDiag - Sistema de Diagnostico Medico Inteligente
 
-
-<<<<<<< HEAD
-You may need to install additional libraries for running the jupyter notebooks.
-
-# 🩺 Sistema de Diagnóstico Médico Inteligente (MVP)
-
-Aplicación web de **apoyo diagnóstico** construida con **Python + Streamlit**. El modelo predictivo sugiere posibles diagnósticos a partir de síntomas y variables clínicas ingresadas por el usuario.
-
- **Aviso Importante**: Esta herramienta es un **apoyo** y **no** reemplaza la valoración médica profesional.
+![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-FF4B4B?logo=streamlit&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-## Objetivos
+## Descripción General
 
-- Entregar un **MVP** funcional de apoyo diagnóstico.
-- Entrenar y versionar un **modelo reproducible** (scikit-learn).
-- Proveer una **UI simple** para predicción en tiempo real.
-- Reportar **métricas** (accuracy, precision, recall, F1) y matriz de confusión.
+MedDiag es un Sistema de Apoyo Diagnostico Medico basado en Inteligencia Artificial. Se desarrolló como un Producto Minimo Viable (MVP) durante el curso de Proyecto Integrador. La aplicación permite que los usuarios ingresen información sobre sus sintomas y obtener predicciones preliminares de posibles diagnosticos.
+
+El sistema fue construido utilizando **Streamlit y Python**, integrando modelos de Machine Learning entrenados con datos medicos. La idea principal es proporcionar una herramienta que ayude a identificar tempranamente posibles problemas de salud.
+
+
 
 ---
 
-## Arquitectura (resumen)
+## Objetivos del Proyecto
 
-- **Datos** → CSV en `data/raw/`
-- **Entrenamiento** → pipeline scikit-learn (preprocesamiento + modelo)
-- **Persistencia** → `models/model.pkl` + `models/metrics.json`
-- **UI** → Streamlit (`app/app.py`) que consume el modelo serializado
-=======
-````markdown
-#  MedDiag – MVP (Producto Mínimo Viable)
+### Objetivo General
 
-**MedDiag** es un prototipo de aplicación de apoyo diagnóstico médico que utiliza **Inteligencia Artificial** para analizar síntomas y sugerir posibles diagnósticos preliminares.  
-Este MVP está desarrollado en **Python**, empleando frameworks livianos y fácilmente desplegables, con el propósito de validar la funcionalidad central del sistema antes de su versión empresarial.
+Desarrollar un sistema de apoyo diagnostico basado en inteligencia artificial que permita a las personas ingresar sintomas y recibir predicciones preliminares sobre posibles enfermedades.
 
----
+### Objetivos Especificos
 
-##  Objetivo del MVP
-
-El objetivo principal del MVP es **demostrar la viabilidad funcional del modelo de diagnóstico automático**, integrando un flujo simple que va desde la **entrada de síntomas** por parte del usuario hasta la **predicción de la posible enfermedad** basada en modelos entrenados.
+1. Analizar y adaptar un repositorio base con arquitectura modular
+2. Entrenar modelos de Machine Learning para predicción de enfermedades
+3. Crear una interfaz de usuario facil de usar con Streamlit
+4. Realizar pruebas del sistema en diferentes fases del desarrollo
+5. Documentar todo el proceso y resultados obtenidos
 
 ---
 
-##  Arquitectura General
+## Tecnologías Utilizadas
 
-El MVP sigue una arquitectura **monolítica** simple compuesta por tres capas principales:
-
-1. **Interfaz de usuario (Frontend):**
-   - Construida con **Streamlit**.
-   - Permite ingresar síntomas, edad, sexo y otros parámetros básicos.
-   - Muestra los resultados del modelo predictivo de forma clara y visual.
-
-2. **Backend / API interna:**
-   - Desarrollado con **FastAPI**.
-   - Gestiona las peticiones entre la interfaz y los modelos de predicción.
-   - Procesa los datos y devuelve el diagnóstico.
-
-3. **Módulo de predicción:**
-   - Implementado con modelos de **Machine Learning** (scikit-learn / TensorFlow).
-   - Entrenado con dataset médico anonimizado.
-   - Evalúa probabilidades de enfermedades basadas en los síntomas registrados.
-
-
-
-##  Tecnologías Utilizadas
-
-| Componente           | Tecnología                              | Descripción                               |
-| -------------------- | --------------------------------------- | ----------------------------------------- |
-| Lenguaje principal   | **Python 3.10+**                        | Desarrollo general del MVP                |
-| Interfaz gráfica     | **Streamlit**                           | Aplicación interactiva para usuarios      |
-| ML / IA              | **scikit-learn**, **pandas**, **numpy** | Entrenamiento y predicción de datos       |
-| Base de datos        | **SQLite** (temporal)                   | Almacenamiento local de registros médicos |
-| Control de versiones | **Git / GitHub**                        | Gestión de ramas y versiones del proyecto |
+| Tecnología | Versión | Para qué se usa |
+|-----------|---------|-----------------|
+| **Python** | 3.10+ | Lenguaje principal de programación |
+| **Streamlit** | 1.28+ | Para crear la interfaz de usuario |
+| **scikit-learn** | 1.3+ | Para entrenar los modelos de Machine Learning |
+| **Pandas** | 2.0+ | Para manipular y procesar los datos |
+| **NumPy** | 1.24+ | Para calculos con arrays y matrices |
+| **SQLite** | 3.40+ | Base de datos local donde guardamos los registros |
+| **FastAPI** | Latest | Para el backend y gestionar las peticiones |
 
 ---
 
-##  Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 MedDiag/
 │
 ├── app/
-│   ├── main.py              # Lógica principal del backend FastAPI
-│   ├── model_predict.py     # Carga y ejecución del modelo de IA
-│   ├── data/                # Dataset usado para entrenamiento
-│   └── utils/               # Funciones auxiliares
+│   ├── main.py                 # Codigo principal del backend
+│   ├── model_predict.py        # Modulo que carga el modelo y hace predicciones
+│   ├── data/                   # Carpeta con los datos para entrenar
+│   │   └── medical_data.csv
+│   └── utils/
+│       ├── validators.py       # Validar los datos que ingresa el usuario
+│       └── database.py         # Gestionar la base de datos SQLite
 │
 ├── frontend/
-│   └── app_streamlit.py     # Interfaz de usuario (Streamlit)
+│   └── app_streamlit.py        # Interfaz gráfica que ve el usuario
 │
 ├── models/
-│   └── trained_model.pkl    # Modelo entrenado (versión MVP)
+│   ├── trained_model.pkl       # Modelo guardado despues del entrenamiento
+│   ├── model_diabetes.pkl      # Modelo para detectar Diabetes
+│   ├── model_cardiac.pkl       # Modelo para enfermedades del corazon
+│   └── model_parkinson.pkl     # Modelo para detectar Parkinson
 │
 ├── notebooks/
-│   └── 01_train.ipynb       # Script de entrenamiento del modelo
+│   └── 01_train.ipynb          # Archivo Jupyter con el codigo de entrenamiento
 │
-├── requirements.txt         # Dependencias del proyecto
-├── README.md                # Este archivo
-└── LICENSE
+├── requirements.txt            # Lista de librerias que necesita el proyecto
+├── README.md                   # Este archivo
+└── LICENSE                     # Licencia del proyecto
 ```
 
 ---
 
-##  Instalación y Ejecución
+## Como Instalar y Ejecutar
 
-### 1️ Clonar el repositorio
+### Antes de Comenzar
+
+Necesitas tener instalado en tu computadora:
+- Python version 3.10 o superior
+- pip (para instalar las librerias)
+- Git (para clonar el repositorio)
+
+### Paso 1: Clonar el Repositorio
+
+Abre la terminal y ejecuta:
 
 ```bash
 git clone https://github.com/CarlosCastano33/MedDiag.git
 cd MedDiag
-git checkout carlos   # Rama MVP
 ```
 
-### 2️ Crear y activar entorno virtual
+### Paso 2: Crear un Entorno Virtual
+
+Es importante crear un entorno virtual para no mezclar las librerias del proyecto con las del sistema.
 
 ```bash
+# Si usas Linux o macOS
 python -m venv venv
-source venv/bin/activate  # Linux / macOS
-venv\Scripts\activate     # Windows
+source venv/bin/activate
+
+# Si usas Windows
+python -m venv venv
+venv\Scripts\activate
 ```
 
-### 3️ Instalar dependencias
+### Paso 3: Instalar las Dependencias
+
+Instala todas las librerias que el proyecto necesita:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️ Ejecutar el backend (FastAPI)
+### Paso 4: Ejecutar la Aplicacion
 
+#### Opcion 1: Solo Streamlit (La mas facil)
+
+```bash
+cd frontend
+streamlit run app_streamlit.py
+```
+
+La aplicación se abrira en tu navegador en: `http://localhost:8501`
+
+#### Opcion 2: Con Backend FastAPI (Si quieres probar el backend también)
+
+En una primera terminal ejecuta:
 ```bash
 cd app
 uvicorn main:app --reload
 ```
 
-### 5️ Ejecutar la interfaz (Streamlit)
-
+En otra terminal ejecuta:
 ```bash
 cd frontend
 streamlit run app_streamlit.py
@@ -141,49 +146,153 @@ streamlit run app_streamlit.py
 
 ---
 
+## Que Puede Hacer la Aplicacion
 
-##  Estado del MVP
+### 1. Ingresar Sintomas
 
-| Módulo              | Estado       | Descripción                                 |
-| ------------------- | ------------ | ------------------------------------------- |
-| Carga de síntomas   | ✅ Completado | Entrada de datos funcional                  |
-| Predicción IA       | ✅ Completado | Modelo de clasificación en producción local |
-| Base de datos local | 🟡 Parcial   | Uso temporal de SQLite                      |
-| Panel de resultados | 🟡 En mejora | Visualización de métricas de predicción     |
-| Validación médica   | 🔴 Pendiente | En etapa de diseño y pruebas                |
+El usuario puede seleccionar los sintomas que tiene, su edad, sexo y otros datos importantes. La aplicación valida que todos los datos sean correctos antes de procesar.
+
+### 2. Predecir Posibles Diagnosticos
+
+Una vez que ingresas los datos, el sistema utiliza los modelos de Machine Learning para analizar la información y predecir que enfermedades podrias tener. Da una probabilidad para cada enfermedad.
+
+### 3. Ver Informacion sobre las Enfermedades
+
+La aplicación muestra informacion educativa sobre los diagnosticos predichos, para que entiendas mejor que son esas enfermedades y cuales son sus síntomas.
+
+### 4. Interfaz Facil de Usar
+
+El diseño de la aplicación es simple y funciona tanto en computadoras como en celulares. Los resultados se muestran de forma clara y con graficos.
 
 ---
 
-##  Pruebas y Entrenamiento
+## Como Entrenamos los Modelos
 
-Para ejecutar pruebas o reentrenar el modelo:
+Entrenamos tres modelos diferentes para detectar:
+- **Diabetes Tipo 2**
+- **Enfermedades del Corazon**
+- **Parkinson**
+
+Los resultados del entrenamiento fueron los siguientes:
+
+| Enfermedad | Precision | Recall | F1-Score | AUC-ROC |
+|-----------|-----------|--------|----------|---------|
+| Diabetes | 74% | 68% | 71% | 0.84 |
+| Enfermedades del Corazon | 87% | 82% | 84% | 0.90 |
+| Parkinson | 90% | 86% | 88% | 0.93 |
+
+**Nota sobre los numeros:** Estos numeros indican que tan bien funciona cada modelo. Por ejemplo, Precision significa que cuando el modelo dice que tienes la enfermedad, que tan probable es que sea verdad.
+
+---
+
+## Estado Actual del Proyecto
+
+Esta es la situación de cada parte del proyecto:
+
+| Parte del Proyecto | Estado | Comentario |
+|------------------|--------|-----------|
+| Ingreso de sintomas | ✅ Terminado | Funciona correctamente |
+| Modelos de predicción | ✅ Terminado | Los 3 modelos estan entrenados |
+| Base de datos | ✅ Terminado | Guardamos los registros localmente |
+| Visualizacion de resultados | ✅ Terminado | Se muestran bien los resultados |
+| Validacion medica |  En progreso | Aun se puede mejorar mas |
+
+---
+
+## Como Reentrenar el Modelo
+
+Si quieres entrenear nuevamente el modelo con otros datos, puedes usar el archivo Jupyter. Abre la terminal y ejecuta:
 
 ```bash
 cd notebooks
 jupyter notebook 01_train.ipynb
 ```
 
-El modelo resultante se guarda en `models/trained_model.pkl`.
+Despues de entrenar, los nuevos modelos se guardaran automaticamente en la carpeta `models/`.
 
 ---
 
-##  Equipo de Desarrollo
+## Metodologia que Usamos
 
-* **Dina Reale** 
-* **Carlos Castaño**  
-* **Adrian Espinosa** 
+Desarrollamos MedDiag siguiendo un enfoque **Agil**, esto significa que hicimos el proyecto en varias etapas pequeñas:
 
-
-
-
+1. **Planeacion:** Definimos que queriamos lograr
+2. **Diseño:** Pensamos en como guardar y procesar los datos
+3. **Desarrollo de Modelos:** Entrenamos los modelos de Machine Learning
+4. **Implementacion:** Construimos la interfaz y el backend
+5. **Pruebas:** Verificamos que todo funcionara correctamente
+6. **Documentacion:** Escribimos todo lo que aprendimos
 
 ---
 
+## Problemas Encontrados y Posibles Mejoras
 
+### Problemas Actuales
 
-**© 2025 – Proyecto MedDiag**
-Desarrollado como prototipo académico de apoyo diagnóstico con IA.
+1. **Los modelos no son perfectos** - Podrían funcionar mejor si tuvieramos más datos para entrenar
+2. **Solo detectamos 3 enfermedades** - Queremos agregar más tipos de diagnosticos en el futuro
+3. **No tenemos validacion de doctores** - Un medico profesional deberia revisar nuestros resultados
+4. **No es muy escalable** - El proyecto actual es pequeño, pero si crece va a necesitar ser reorganizado
 
-```
+### Ideas para Mejorar en el Futuro
 
->>>>>>> adrian
+- Agregar mas enfermedades que el sistema pueda predecir
+- Usar modelos mas avanzados con redes neuronales profundas
+- Desplegar la aplicacion en la nube (AWS, Google Cloud)
+- Validar los resultados con hospitales y clinicas reales
+- Crear una aplicacion movil para celulares
+- Agregar seguridad para proteger los datos de los usuarios
+
+---
+
+## El Equipo que Desarrollo MedDiag
+
+Este proyecto fue realizado por estudiantes de Ingenieria de Sistemas como trabajo del curso **Proyecto Integrador**:
+
+- **Adrian Espinosa** - Desarrollador Backend
+- **Carlos Castaño** - Desarrollador Frontend
+- **Diana Huertas** - Especialista en Machine Learning
+
+**Docente Asesor:** Sandra Patricia Zabala Orrego
+
+---
+
+## Referencias que Consultamos
+
+Estas fueron algunas de las fuentes que consultamos para aprender:
+
+1. Documentacion de Streamlit: https://streamlit.io/
+2. Documentacion de FastAPI: https://fastapi.tiangolo.com/
+3. Documentacion de scikit-learn: https://scikit-learn.org/
+4. Documentacion de Pandas: https://pandas.pydata.org/
+5. Documentacion de NumPy: https://numpy.org/
+
+---
+
+## Licencia
+
+Este proyecto esta bajo la licencia MIT, esto significa que puedes usarlo libremente, pero debes darle credito a los autores.
+
+---
+
+## Como Contribuir
+
+Si quieres ayudar a mejorar MedDiag, puedes:
+
+1. Hacer un Fork del repositorio
+2. Crear una rama nueva con tu nombre: `git checkout -b feature/tuNombre`
+3. Hacer cambios y commit: `git commit -m "Descripcion de lo que cambiaste"`
+4. Hacer push: `git push origin feature/tuNombre`
+5. Abrir un Pull Request
+
+---
+
+## Notas Finales
+
+MedDiag es un proyecto educativo que demuestra como podemos usar Inteligencia Artificial para ayudar en el area de la salud. Aunque funciona bien para un MVP, es importante recordar que **no debe reemplazar** la opinion de un medico profesional.
+
+Aprendimos mucho durante este proyecto, desde como funcionan los modelos de Machine Learning, hasta como construir una aplicacion web completa con Streamlit.
+
+**© 2025 - Proyecto Integrador - Ingenieria de Sistemas**
+
+*Medellín, Colombia*
