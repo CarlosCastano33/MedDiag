@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from models import User, Disease, Diagnosis, DiagnosisDetail
+from sqlalchemy import func
 
 # 1) Usuario: crear o reutilizar
 def get_or_create_user(db: Session, name: str, email: str = None,
@@ -113,6 +114,7 @@ def get_diagnoses_by_user_email(db: Session, email: str, limit: int = 50):
         .order_by(Diagnosis.generated_at.desc())
         .limit(limit)
     )
+    return query.all()
 
     # 6) Obtener diagnósticos filtrados por nombre de usuario
 def get_diagnoses_by_user_name(db: Session, name: str, limit: int = 50):
@@ -134,7 +136,7 @@ def get_diagnoses_by_user_name(db: Session, name: str, limit: int = 50):
         .join(User, Diagnosis.user_id == User.id)
         .join(DiagnosisDetail, DiagnosisDetail.diagnosis_id == Diagnosis.id)
         .join(Disease, DiagnosisDetail.disease_id == Disease.id)
-        .filter(User.name == name)
+        .filter(func.lower(User.name) == func.lower(name))
         .order_by(Diagnosis.generated_at.desc())
         .limit(limit)
     )
