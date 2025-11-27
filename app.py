@@ -8,6 +8,7 @@ from flags import get_flag
 from database import engine, SessionLocal
 from models import Base
 from crud import (
+    get_diagnoses_by_user_name,
     get_or_create_user,
     seed_default_diseases,
     create_diagnosis_with_single_candidate,
@@ -639,6 +640,7 @@ elif selected == t["history"]:
     st.markdown(t["history_intro"])
 
     with st.form("history_form"):
+        filter_name = st.text_input(t["history_filter_name"])
         filter_email = st.text_input(t["history_filter_email"])
         limit = st.slider(
             "Número máximo de registros a mostrar",
@@ -652,10 +654,10 @@ elif selected == t["history"]:
 
     if submit_history:
         with SessionLocal() as db:
-            if filter_email.strip():
-                rows = get_diagnoses_by_user_email(
-                    db, filter_email.strip(), limit=limit
-                )
+            if filter_name.strip():
+                rows = get_diagnoses_by_user_name(db, filter_name.strip(), limit=limit)
+            elif filter_email.strip():
+                rows = get_diagnoses_by_user_email(db, filter_email.strip(), limit=limit)
             else:
                 rows = get_recent_diagnoses(db, limit=limit)
 

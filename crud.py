@@ -113,4 +113,29 @@ def get_diagnoses_by_user_email(db: Session, email: str, limit: int = 50):
         .order_by(Diagnosis.generated_at.desc())
         .limit(limit)
     )
+
+    # 6) Obtener diagnósticos filtrados por nombre de usuario
+def get_diagnoses_by_user_name(db: Session, name: str, limit: int = 50):
+    """
+    Retorna diagnósticos asociados a un nombre concreto.
+    """
+    query = (
+        db.query(
+            Diagnosis.id,
+            Diagnosis.generated_at,
+            Diagnosis.status,
+            Diagnosis.final_description,
+            User.name.label("user_name"),
+            User.email.label("user_email"),
+            Disease.name.label("disease_name"),
+            Disease.disease_code,
+            DiagnosisDetail.probability
+        )
+        .join(User, Diagnosis.user_id == User.id)
+        .join(DiagnosisDetail, DiagnosisDetail.diagnosis_id == Diagnosis.id)
+        .join(Disease, DiagnosisDetail.disease_id == Disease.id)
+        .filter(User.name == name)
+        .order_by(Diagnosis.generated_at.desc())
+        .limit(limit)
+    )
     return query.all()
