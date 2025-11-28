@@ -65,9 +65,13 @@ translations = {
         # NUEVO: historial
         "history": "Historial de diagnósticos",
         "history_intro": "Consulta los diagnósticos registrados por la aplicación.",
+        "delete": "Eliminación de diagnósticos",
+        "delete_intro": "Elimina un diagnóstico del historial",
         "history_filter_name": "Filtrar por nombre (opcional)",
         "history_filter_email": "Filtrar por correo (opcional)",
+        "delete_filter_id": "ID de diagnóstico para eliminar",
         "history_show_button": "Mostrar historial",
+        "delete_button": "Eliminar diagnóstico",
         "history_empty": "Aún no hay diagnósticos registrados en la base de datos.",
     },
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -137,9 +141,13 @@ translations = {
         # NEW: history
         "history": "Diagnosis history",
         "history_intro": "Browse the diagnoses stored by the application.",
+        "delete": "Delete diagnoses",
+        "delete_intro": "Delete a diagnosis from the history",
         "history_filter_name": "Filter by name (optional)",
         "history_filter_email": "Filter by email (optional)",
+        "delete_filter_id": "Diagnostic ID to delete",
         "history_show_button": "Show history",
+        "delete_button": "Eliminar diagnóstico",
         "history_empty": "No diagnoses have been stored yet.",
     }
 }

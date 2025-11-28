@@ -25,7 +25,7 @@ def get_or_create_user(db: Session, name: str, email: str = None,
 # 2) Seed básico de enfermedades ligadas a tus 3 modelos
 def seed_default_diseases(db: Session):
     defaults = [
-        ("DIAB", "Riesgo de Diabetes (modelo ML)", "Modelo basado en dataset Pima."),
+        ("DIAB", "Riesgo de Diabetes", "Modelo basado en dataset Pima."),
         ("HEART", "Riesgo de Enfermedad Cardíaca", "Modelo basado en dataset UCI Heart."),
         ("PARK", "Riesgo de Parkinson", "Modelo basado en parámetros de voz."),
     ]
@@ -141,3 +141,23 @@ def get_diagnoses_by_user_name(db: Session, name: str, limit: int = 50):
         .limit(limit)
     )
     return query.all()
+
+# 7) Elimina un diagnóstico y sus detalles asociados por ID
+def delete_diagnosis_by_id(db: Session, diagnosis_id: int) -> bool:
+# Buscar diagnóstico
+    diagnosis = db.query(Diagnosis).filter(Diagnosis.id == diagnosis_id).first()
+
+    if not diagnosis:
+        return False  # No existe
+
+# Borrar detalles primero (clave foránea)
+    db.query(DiagnosisDetail).filter(
+        DiagnosisDetail.diagnosis_id == diagnosis_id
+    ).delete()
+
+# Borrar diagnóstico
+    db.delete(diagnosis)
+
+# NO hacemos commit aquí, lo haces afuera
+    return True
+

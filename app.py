@@ -14,6 +14,7 @@ from crud import (
     create_diagnosis_with_single_candidate,
     get_recent_diagnoses,
     get_diagnoses_by_user_email,
+    delete_diagnosis_by_id
 )
 
 # ------------------------------------------------------------
@@ -679,5 +680,37 @@ elif selected == t["history"]:
                         "Estado": r.status,
                     }
                 )
-
             st.dataframe(data, use_container_width=True)
+
+    ####################
+    # PARA BORRAR UN REGISTRO
+    ####################
+    st.title(t["delete"])
+    st.markdown(t["delete_intro"])
+
+    with st.form("delete_record_form"):
+        filter_id = st.number_input(t["delete_filter_id"], min_value=1, step=1)
+        submit_delete = st.form_submit_button(t["delete_button"])
+    
+    if submit_delete:
+        # Mostrar confirmación
+        st.warning(f"⚠ ¿Seguro que deseas eliminar el diagnóstico con ID **{int(filter_id)}**?")
+        col1, col2 = st.columns(2)
+        with col1:
+            confirm = st.button("Sí, eliminar", key="confirm_delete")
+        with col2:
+            cancel = st.button("Cancelar", key="cancel_delete")
+
+        if confirm:
+            with SessionLocal() as db:
+                success = delete_diagnosis_by_id(db, int(filter_id))
+
+                if success:
+                    db.commit()
+                    st.success("✅ Diagnóstico eliminado correctamente.")
+                else:
+                    st.error("❌ El diagnóstico no existe.")
+        
+        if cancel:
+            st.info("Operación cancelada.")
+

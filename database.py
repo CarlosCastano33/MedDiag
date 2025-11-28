@@ -7,19 +7,26 @@ from dotenv import load_dotenv
 # Carga variables de entorno desde .env
 load_dotenv()
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "sqlite:///./meddiag.db"  # Fallback seguro si no está definida
-)
+#DATABASE_URL = os.getenv(
+#    "DATABASE_URL",
+#    "sqlite:///./meddiag.db"  # Fallback seguro si no está definida
+#)
+
+url = "postgresql://meddiag_psql_user:he9UBbHeMJXUtXokHs4BJ5s6JhAOKJtX@dpg-d4ke0rm3jp1c738pep70-a.oregon-postgres.render.com/meddiag_psql"
+
+
+engine = create_engine(url)
+conn = engine.connect()
+print("Conexión OK")
 
 # Para SQLite necesitamos un argumento extra en check_same_thread
-if DATABASE_URL.startswith("sqlite"):
-    engine = create_engine(
-        DATABASE_URL,
-        connect_args={"check_same_thread": False}
-    )
-else:
-    engine = create_engine(DATABASE_URL)
+#if DATABASE_URL.startswith("sqlite"):
+#    engine = create_engine(
+#        DATABASE_URL,
+#        connect_args={"check_same_thread": False}
+#    )
+#else:
+#    engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
