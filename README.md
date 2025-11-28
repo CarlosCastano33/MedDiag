@@ -41,6 +41,7 @@ Desarrollar un sistema de apoyo diagnostico basado en inteligencia artificial qu
 | **NumPy** | 1.24+ | Para calculos con arrays y matrices |
 | **SQLite** | 3.40+ | Base de datos local donde guardamos los registros |
 | **FastAPI** | Latest | Para el backend y gestionar las peticiones |
+| **Render** | Latest | PAra el despliegue de fastapi,  postgreesql  y stremlit|
 
 ---
 
@@ -461,6 +462,6 @@ MedDiag es un proyecto educativo que demuestra como podemos usar Inteligencia Ar
 
 Aprendimos mucho durante este proyecto, desde como funcionan los modelos de Machine Learning, hasta como construir una aplicacion web completa con Streamlit.
 
-**© 2025 - Proyecto Integrador - Ingenieria de Sistemas**
+**© 2025 - Proyecto Integrador - Ingenieria de Sistemas- UdeA**
 
 *Medellín, Colombia*
