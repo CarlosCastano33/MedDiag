@@ -1,10 +1,16 @@
 from sqlalchemy.orm import Session
-from models import User, Disease, Diagnosis, DiagnosisDetail
+from app.models import User, Disease, Diagnosis, DiagnosisDetail
+from app.utils.validators import validate_probability
 
-# 1) Usuario: crear o reutilizar
-def get_or_create_user(db: Session, name: str, email: str = None,
-                       age: int = None, gender: str = None,
-                       phone_number: str = None) -> User:
+
+def get_or_create_user(
+    db: Session,
+    name: str,
+    email: str | None = None,
+    age: int | None = None,
+    gender: str | None = None,
+    phone_number: str | None = None,
+) -> User:
     user = None
     if email:
         user = db.query(User).filter(User.email == email).first()
@@ -15,14 +21,14 @@ def get_or_create_user(db: Session, name: str, email: str = None,
             email=email,
             age=age,
             gender=gender,
-            phone_number=phone_number
+            phone_number=phone_number,
         )
         db.add(user)
-        db.flush()  # para obtener user.id
+        db.flush()
     return user
 
-# 2) Seed básico de enfermedades ligadas a tus 3 modelos
-def seed_default_diseases(db: Session):
+
+def seed_default_diseases(db: Session) -> None:
     defaults = [
         ("DIAB", "Riesgo de Diabetes (modelo ML)", "Modelo basado en dataset Pima."),
         ("HEART", "Riesgo de Enfermedad Cardíaca", "Modelo basado en dataset UCI Heart."),
@@ -34,41 +40,32 @@ def seed_default_diseases(db: Session):
             db.add(Disease(disease_code=code, name=name, description=desc))
     db.commit()
 
-# 3) Crear diagnóstico + detalle (versión simple: 1 enfermedad candidata)
+
 def create_diagnosis_with_single_candidate(
     db: Session,
     user_id: int,
     disease_code: str,
     probability: float,
-    final_description: str
+    final_description: str,
 ) -> Diagnosis:
     disease = db.query(Disease).filter(Disease.disease_code == disease_code).first()
     if not disease:
         raise ValueError(f"Disease with code {disease_code} not found")
 
-    diagnosis = Diagnosis(
-        user_id=user_id,
-        final_description=final_description,
-        status="pending"
-    )
+    diagnosis = Diagnosis(user_id=user_id, final_description=final_description, status="pending")
     db.add(diagnosis)
-    db.flush()  # genera diagnosis.id
+    db.flush()
 
     detail = DiagnosisDetail(
         diagnosis_id=diagnosis.id,
         disease_id=disease.id,
-        probability=round(float(probability), 4)
+        probability=validate_probability(probability),
     )
     db.add(detail)
-
     return diagnosis
 
-# 4) Obtener diagnósticos recientes (para historial general)
+
 def get_recent_diagnoses(db: Session, limit: int = 50):
-    """
-    Retorna los diagnósticos más recientes, incluyendo datos del usuario
-    y de la enfermedad.
-    """
     query = (
         db.query(
             Diagnosis.id,
@@ -79,7 +76,7 @@ def get_recent_diagnoses(db: Session, limit: int = 50):
             User.email.label("user_email"),
             Disease.name.label("disease_name"),
             Disease.disease_code,
-            DiagnosisDetail.probability
+            DiagnosisDetail.probability,
         )
         .join(User, Diagnosis.user_id == User.id)
         .join(DiagnosisDetail, DiagnosisDetail.diagnosis_id == Diagnosis.id)
@@ -89,11 +86,8 @@ def get_recent_diagnoses(db: Session, limit: int = 50):
     )
     return query.all()
 
-# 5) Obtener diagnósticos filtrados por correo de usuario
+
 def get_diagnoses_by_user_email(db: Session, email: str, limit: int = 50):
-    """
-    Retorna diagnósticos asociados a un correo concreto.
-    """
     query = (
         db.query(
             Diagnosis.id,
@@ -104,7 +98,7 @@ def get_diagnoses_by_user_email(db: Session, email: str, limit: int = 50):
             User.email.label("user_email"),
             Disease.name.label("disease_name"),
             Disease.disease_code,
-            DiagnosisDetail.probability
+            DiagnosisDetail.probability,
         )
         .join(User, Diagnosis.user_id == User.id)
         .join(DiagnosisDetail, DiagnosisDetail.diagnosis_id == Diagnosis.id)
@@ -113,12 +107,10 @@ def get_diagnoses_by_user_email(db: Session, email: str, limit: int = 50):
         .order_by(Diagnosis.generated_at.desc())
         .limit(limit)
     )
+    return query.all()
 
-    # 6) Obtener diagnósticos filtrados por nombre de usuario
+
 def get_diagnoses_by_user_name(db: Session, name: str, limit: int = 50):
-    """
-    Retorna diagnósticos asociados a un nombre concreto.
-    """
     query = (
         db.query(
             Diagnosis.id,
@@ -129,7 +121,7 @@ def get_diagnoses_by_user_name(db: Session, name: str, limit: int = 50):
             User.email.label("user_email"),
             Disease.name.label("disease_name"),
             Disease.disease_code,
-            DiagnosisDetail.probability
+            DiagnosisDetail.probability,
         )
         .join(User, Diagnosis.user_id == User.id)
         .join(DiagnosisDetail, DiagnosisDetail.diagnosis_id == Diagnosis.id)

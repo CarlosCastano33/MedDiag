@@ -50,32 +50,28 @@ Desarrollar un sistema de apoyo diagnostico basado en inteligencia artificial qu
 
 ```
 MedDiag/
-│
-├── app/
-│   ├── main.py                 # Codigo principal del backend
-│   ├── model_predict.py        # Modulo que carga el modelo y hace predicciones
-│   ├── data/                   # Carpeta con los datos para entrenar
-│   │   └── medical_data.csv
-│   └── utils/
-│       ├── validators.py       # Validar los datos que ingresa el usuario
-│       └── database.py         # Gestionar la base de datos SQLite
-│
-├── frontend/
-│   └── app_streamlit.py        # Interfaz gráfica que ve el usuario
-│
-├── models/
-│   ├── trained_model.pkl       # Modelo guardado despues del entrenamiento
-│   ├── model_diabetes.pkl      # Modelo para detectar Diabetes
-│   ├── model_cardiac.pkl       # Modelo para enfermedades del corazon
-│   └── model_parkinson.pkl     # Modelo para detectar Parkinson
-│
-├── notebooks/
-│   └── 01_train.ipynb          # Archivo Jupyter con el codigo de entrenamiento
-│
-├── requirements.txt            # Lista de librerias que necesita el proyecto
-├── README.md                   # Este archivo
-└── LICENSE                     # Licencia del proyecto
+  app/
+    main.py               # Backend FastAPI (REST y persistencia)
+    model_predict.py      # Carga y ejecucion de modelos ML
+    models.py             # Modelos SQLAlchemy
+    utils/
+      crud.py             # Operaciones de base de datos
+      database.py         # Configuracion de la base de datos
+      validators.py       # Validaciones basicas
+
+  frontend/
+    app_streamlit.py      # Interfaz Streamlit consumiendo la API
+
+  saved_models/           # Modelos entrenados (.sav)
+  notebooks/              # Notebooks de entrenamiento
+  render.yaml             # Despliegue en Render (API + Streamlit)
+ Dockerfile              # Imagen del backend
+  requirements.txt        # Dependencias del proyecto
+  .env.example            # Variables de entorno ejemplo
+  README.md
 ```
+
+Para instrucciones de despliegue en Render consulta `DEPLOY.md`.
 
 ---
 

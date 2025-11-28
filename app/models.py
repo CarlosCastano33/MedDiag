@@ -1,12 +1,18 @@
-# models.py
 from sqlalchemy import (
-    Column, Integer, String, Text,
-    Numeric, ForeignKey, CheckConstraint, UniqueConstraint,
-    DateTime
+    Column,
+    Integer,
+    String,
+    Text,
+    Numeric,
+    ForeignKey,
+    CheckConstraint,
+    UniqueConstraint,
+    DateTime,
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from database import Base
+from app.utils.database import Base
+
 
 class User(Base):
     __tablename__ = "users"
@@ -20,6 +26,7 @@ class User(Base):
 
     diagnoses = relationship("Diagnosis", back_populates="user")
 
+
 class Symptom(Base):
     __tablename__ = "symptoms"
 
@@ -28,6 +35,7 @@ class Symptom(Base):
     description = Column(Text)
 
     diagnosis_symptoms = relationship("DiagnosisSymptom", back_populates="symptom")
+
 
 class Disease(Base):
     __tablename__ = "diseases"
@@ -39,17 +47,14 @@ class Disease(Base):
 
     diagnosis_details = relationship("DiagnosisDetail", back_populates="disease")
 
+
 class Diagnosis(Base):
     __tablename__ = "diagnoses"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     generated_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
-    status = Column(
-        Text,
-        nullable=False,
-        server_default="pending"
-    )
+    status = Column(Text, nullable=False, server_default="pending")
     final_description = Column(Text)
 
     __table_args__ = (
@@ -59,6 +64,7 @@ class Diagnosis(Base):
     user = relationship("User", back_populates="diagnoses")
     details = relationship("DiagnosisDetail", back_populates="diagnosis", cascade="all, delete-orphan")
     symptoms = relationship("DiagnosisSymptom", back_populates="diagnosis", cascade="all, delete-orphan")
+
 
 class DiagnosisDetail(Base):
     __tablename__ = "diagnosis_details"
@@ -75,6 +81,7 @@ class DiagnosisDetail(Base):
 
     diagnosis = relationship("Diagnosis", back_populates="details")
     disease = relationship("Disease", back_populates="diagnosis_details")
+
 
 class DiagnosisSymptom(Base):
     __tablename__ = "diagnosis_symptoms"
