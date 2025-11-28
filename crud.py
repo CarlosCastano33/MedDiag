@@ -149,12 +149,7 @@ def delete_diagnosis_by_id(db: Session, diagnosis_id: int) -> bool:
 
     if not diagnosis:
         return False  # No existe
-
-# Borrar detalles primero (clave foránea)
-    db.query(DiagnosisDetail).filter(
-        DiagnosisDetail.diagnosis_id == diagnosis_id
-    ).delete()
-
+        
 # Borrar diagnóstico
     db.delete(diagnosis)
 
