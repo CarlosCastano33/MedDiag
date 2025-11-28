@@ -711,7 +711,6 @@ elif selected == t["history"]:
             if st.button("Sí, eliminar", key="confirm_delete"):
                 with SessionLocal() as db:
                     success = delete_diagnosis_by_id(db, int(st.session_state.delete_id))
-                
                 if success:
                     db.commit()
                     st.success("✅ Diagnóstico eliminado correctamente.")
@@ -720,10 +719,8 @@ elif selected == t["history"]:
                 
                 # limpiar estado
                 st.session_state.delete_id = None
-                st.rerun()
 
         with col2:
             if st.button("Cancelar", key="cancel_delete"):
-                st.info("Operación cancelada.")
                 st.session_state.delete_id = None
-                st.rerun()
+                st.info("Operación cancelada.")
