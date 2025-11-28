@@ -149,10 +149,9 @@ def delete_diagnosis_by_id(db: Session, diagnosis_id: int) -> bool:
 
     if not diagnosis:
         return False  # No existe
-        
+
 # Borrar diagnóstico
     db.delete(diagnosis)
-
 # commit afuera
     return True
 

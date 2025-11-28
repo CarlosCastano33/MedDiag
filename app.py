@@ -711,11 +711,11 @@ elif selected == t["history"]:
             if st.button("Sí, eliminar", key="confirm_delete"):
                 with SessionLocal() as db:
                     success = delete_diagnosis_by_id(db, int(st.session_state.delete_id))
-                if success:
-                    db.commit()
-                    st.success("✅ Diagnóstico eliminado correctamente.")
-                else:
-                    st.error("❌ El diagnóstico no existe.")
+                    if success:
+                        db.commit()
+                        st.success("✅ Diagnóstico eliminado correctamente.")
+                    else:
+                        st.error("❌ El diagnóstico no existe.")
                 
                 # limpiar estado
                 st.session_state.delete_id = None
