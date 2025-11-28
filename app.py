@@ -685,16 +685,28 @@ elif selected == t["history"]:
     ####################
     # PARA BORRAR UN REGISTRO
     ####################
+    st.markdown("---")
     st.title(t["delete"])
     st.markdown(t["delete_intro"])
 
+    # Inicializar estado
+    if "delete_id" not in st.session_state:
+        st.session_state.delete_id = None
+    
+
     with st.form("delete_record_form"):
-        filter_id = st.number_input(t["delete_filter_id"], min_value=1, step=1)
+        delete_id = st.number_input(t["delete_filter_id"], min_value=1, step=1)
         submit_delete = st.form_submit_button(t["delete_button"])
     
+    # Primera acción: guardar el ID y pedir confirmación
+  #  if submit_delete:
+  #      st.session_state.delete_id = int(delete_id)
+
     if submit_delete:
+        # Guardamos el ID
+        st.session_state.delete_id = int(delete_id)
         # Mostrar confirmación
-        st.warning(f"⚠ ¿Seguro que deseas eliminar el diagnóstico con ID **{int(filter_id)}**?")
+        st.warning(f"⚠ ¿Seguro que deseas eliminar el diagnóstico con ID **{st.session_state.delete_id}**?")
         col1, col2 = st.columns(2)
         with col1:
             confirm = st.button("Sí, eliminar", key="confirm_delete")
@@ -703,7 +715,7 @@ elif selected == t["history"]:
 
         if confirm:
             with SessionLocal() as db:
-                success = delete_diagnosis_by_id(db, int(filter_id))
+                success = delete_diagnosis_by_id(db, int(st.session_state.delete_id))
 
                 if success:
                     db.commit()
