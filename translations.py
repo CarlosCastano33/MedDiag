@@ -147,7 +147,7 @@ translations = {
         "history_filter_email": "Filter by email (optional)",
         "delete_filter_id": "Diagnostic ID to delete",
         "history_show_button": "Show history",
-        "delete_button": "Eliminar diagnóstico",
+        "delete_button": "Remove diagnosis",
         "history_empty": "No diagnoses have been stored yet.",
     }
 }
