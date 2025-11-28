@@ -158,6 +158,6 @@ def delete_diagnosis_by_id(db: Session, diagnosis_id: int) -> bool:
 # Borrar diagnóstico
     db.delete(diagnosis)
 
-# NO hacemos commit aquí, lo haces afuera
+# commit afuera
     return True
 
