@@ -697,32 +697,33 @@ elif selected == t["history"]:
     with st.form("delete_record_form"):
         delete_id = st.number_input(t["delete_filter_id"], min_value=1, step=1)
         submit_delete = st.form_submit_button(t["delete_button"])
-    
-    # Primera acción: guardar el ID y pedir confirmación
-  #  if submit_delete:
-  #      st.session_state.delete_id = int(delete_id)
 
-    if submit_delete:
         # Guardamos el ID
+    if submit_delete:
         st.session_state.delete_id = int(delete_id)
-        # Mostrar confirmación
+
+    # Mostrar confirmación si hay un ID pendiente
+    if st.session_state.delete_id:
         st.warning(f"⚠ ¿Seguro que deseas eliminar el diagnóstico con ID **{st.session_state.delete_id}**?")
+
         col1, col2 = st.columns(2)
         with col1:
-            confirm = st.button("Sí, eliminar", key="confirm_delete")
-        with col2:
-            cancel = st.button("Cancelar", key="cancel_delete")
-
-        if confirm:
-            with SessionLocal() as db:
-                success = delete_diagnosis_by_id(db, int(st.session_state.delete_id))
-
+            if st.button("Sí, eliminar", key="confirm_delete"):
+                with SessionLocal() as db:
+                    success = delete_diagnosis_by_id(db, int(st.session_state.delete_id))
+                
                 if success:
                     db.commit()
                     st.success("✅ Diagnóstico eliminado correctamente.")
                 else:
                     st.error("❌ El diagnóstico no existe.")
-        
-        if cancel:
-            st.info("Operación cancelada.")
+                
+                # limpiar estado
+                st.session_state.delete_id = None
+                st.rerun()
 
+        with col2:
+            if st.button("Cancelar", key="cancel_delete"):
+                st.info("Operación cancelada.")
+                st.session_state.delete_id = None
+                st.rerun()
